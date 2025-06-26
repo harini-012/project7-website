@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Budjet Buddy</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" size="16X16" href="https://thekidcompany.in/wp-content/uploads/2024/09/BUDGET-BUDDY-1.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+</head>
+<style>
+	.social-buttons-container
+	{
+		gap:12px;
+		height:40px;
+	}
+	.qualifier-choice
+	{
+		position: relative;
+    margin: 10px 10px;
+    cursor: pointer;
+    z-index: 9;
+	padding:10px;
+
+	}
+	.card{
+	border:5px solid indigo
+	}
+	.card:hover {
+  border:10px solid green;
+  transform: scale(1.05);
+  transition:transform 0.3s ease,border-color 0.3s ease;
+}
+	
+</style>
+<body style="background: linear-gradient(135deg, #e0eafc, #cfdef3);">	
+	<div class="d-flex justify-content-between align-items-center px-4">
+		<h1 style="color:indigo;" class="my-3">Budget Buddy</h1><br><br>
+		<div class="d-flex" style="gap:10px">
+			<button id="sign"  type="button"class="btn rounded-pill text-white px-4 py-2 "style="background: linear-gradient(135deg, #667eea, #764ba2);border:none;" data-bs-toggle="modal" data-bs-target="#mod">Sign in
+			</button>
+			<button id="logout" type="button"class="btn rounded-pill text-white px-4 py-2"style="background: linear-gradient(135deg, #667eea, #764ba2);border: none;display:none" onclick="logout()">Log out
+			</button>
+		</div>
+	</div>
+		<span id="display" class="ms-3 fw-bold text-primary" style="font-size:40px"></span><br><br>
+	
+	
+		<nav class="navbar navbar-expand-lg navbar-dark bg-indigo px-4 rounded-pill" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+			<div class="container-fluid">
+				<a class="navbar-brand fw-bold" href="#">Budget Buddy</a>
+				<ul class="navbar-nav ms-auto gap-3">
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#home">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7features.html">Features</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7dashboard.html">Dashboard</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7balance.html">Balance check</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7transactions.html">Transactions</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7budget.html">Budget planner</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7faq.html">FAQ</a>
+					</li>
+				</ul>
+			</div>
+		</nav><br><br>
+		<div id="home">
+		
+		
+		<div id="mod" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header d-flex" style="gap:280px">
+						<h3 class="modal-title" >BudjetBuddy</h3>
+						<button type="button"  class="close"  data-bs-dismiss="modal" aria-label="close">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-2" style="font-family: Expensify-NewKansas, serif;font-size: 22px;font-weight: 500;padding-bottom: 4px">How would you like to connect?</div>
+							<button type="button" id="email" class="btn btn-lg btn-primary w-100 mb-2" style="padding: .5rem 1.3rem;" onclick="email()">Email</button><br><br>
+							<button type="button" id="phone" class="btn btn-lg btn-secondary mb-2 w-100" style="padding: .5rem 1.3rem;" onclick="phone()">Phone number</button><br><br>
+							
+						<div class="d-flex justify-content-center align-items-center mt-2 mb-3 social-buttons-container">
+							<a href="https://appleid.apple.com/" class="btn btn-dark">
+								<i class="fab fa-apple"></i> Sign in with Apple
+							</a>
+						</div>
+					</div>
+						
+					
+					<div class="modal-footer">
+						<div class="mb-2 mt-3"><h2>Do you want to contact our sales team?</h2><br><br>
+							<a href=" http://127.0.0.1:5000" class="btn btn-lg bg-success " style="margin-left:100px" onclick="alert('You cannot go back?ARe your sure to visit the team')">Contact our sales team</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+				
+						
+					
+						
+						
+	
+	<h2 class="m-3	p-4" style="font-size:40px">Travel and expense, at the speed of chat</h2>
+	<div class="m-4 p-4">
+		<h3>✔️All inclusive. Manage expenses, book travel, reimburse employees, and create expense reports.</h3><br>
+		<h3>✔️Corporate cards. Bring your own or get the Expensify Card for cash back on every US purchase.</h3><br>
+		<h3>✔️45+ integrations. QuickBooks, NetSuite, Sage Intacct, Xero, Workday, Gusto, and so much more.</h3><br>
+	</div><br><br>
+	
+	<div class="d-flex " style="flex-direction:row;gap:100px;margin-left:200px">	
+		<div class="card qualifier-choice d-flex" style="background-color:indigo;color:white;width:300px;heigth:300px;flex-direction:column">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/illustrations/simple-illustration__piggybank.svg">
+			<h5>Organize my own expenses</h5>
+		</div>
+		<div class="card qualifier-choice d-flex" style="background-color:indigo;color:white;width:300px;heigth:300px;flex-direction:column">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/illustrations/simple-illustration__smallrocket.svg">
+			<h5>Manage expenses for 1-9 employees</h5>
+		</div>
+				<div class="card qualifier-choice d-flex" style="background-color:indigo;color:white;width:300px;heigth:300px;flex-direction:column">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/illustrations/simple-illustration__bigrocket.svg">
+			<h5>Manage expenses for 1-9 employees</h5>
+		</div>
+	</div><br><br><br><br><br>
+	<div class="card m-3 p-4" style="background-color:lightblue">
+		<h2 style="text-align:Center">Join 15 million+ members who trust BudjetBuddy</h2><br><br>
+		<div class="d-flex " style="flex-direction:row;gap:50px;">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/homepage/2024/logo_xero.svg" style="height:200px ;width:500px">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/homepage/2024/logo_tribeca.svg" style="height:200px ;width:200px">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/homepage/2024/logo_warby.svg" style="height:200px ;width:200px">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/homepage/2024/logo_swatch.svg" style="height:200px ;width:200px">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/homepage/2024/logo_pinterest.svg" style="height:200px ;width:200px">
+			<img src="https://d2k5nsl2zxldvw.cloudfront.net/images/homepage/2024/logo_uk.svg" style="height:200px ;width:200px">
+		</div>	
+	</div><br><br><br><br>
+	
+	<footer class="bg-light text-dark mt-5">
+	  <div class="container py-4">
+		<p class="mb-0 small text-center">
+		  The Expensify Visa® Commercial Card is issued by The Bancorp Bank, N.A. pursuant to a license from Visa U.S.A. Inc. and may not be used at all merchants that accept Visa cards.<br>
+		  Apple® and the Apple logo® are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.<br>
+		  Google Play and the Google Play logo are trademarks of Google LLC.
+		</p>
+	  </div>
+	</footer>
+	<script>
+		function email()
+		{	
+		const email=prompt("Enter your email id")
+		const password=prompt("Enter your password")
+		if (email&&password)	
+		{
+			document.getElementById("display").innerHTML=`Welcome,${email.split('@')[0]}!`;
+			alert('Logged in successfully')
+			const modal = bootstrap.Modal.getInstance(document.getElementById('mod'));
+			
+			
+			modal.hide()
+			document.getElementById("sign").style.display = "none";
+			document.getElementById("logout").style.display = "inline-block";
+			
+			
+		}
+		}
+		function phone()
+		{
+			const phoneno=prompt("Enter your phone nunber")
+			if (phoneno)
+			{
+			document.getElementById("display").innerHTML=`Welcome,${phoneno}!`;
+			
+			alert('Logged in sucessfully')
+			const modal = bootstrap.Modal.getInstance(document.getElementById('mod'));
+			
+			modal.hide()
+			document.getElementById("sign").style.display = "none";
+			document.getElementById("logout").style.display = "inline-block";
+			
+			}
+		}
+		function logout()
+		{
+			const ans=prompt("Are you sure to logout type yes?")
+			if(ans==="yes")
+			{
+				document.getElementById("display").innerHTML="";
+				document.getElementById("sign").style.display = "inline-block"
+				document.getElementById("logout").style.display = "none";
+			}
+			else if(ans==="no")
+			{
+				document.getElementById("logout").style.display = "inline-block";
+			}
+			else
+			{
+				const re=prompt("Enter yes or no")
+				if (re==="yes")
+				{
+					
+				document.getElementById("display").innerHTML="";
+				document.getElementById("sign").style.display = "inline-block"
+				document.getElementById("logout").style.display = "none";
+				}
+			}
+				
+		}
+			
+			
+			
+			
+	</script>
+</body>
+</html>
+		
+	

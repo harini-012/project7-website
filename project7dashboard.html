@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Budjet Buddy|Dashboard</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="icon" type="image/x-icon" size="16X16" href="https://thekidcompany.in/wp-content/uploads/2024/09/BUDGET-BUDDY-1.png">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+</head>
+<body style="background: linear-gradient(135deg, #e0eafc, #cfdef3);">
+	<h1 style="color:indigo;" class="mx-3 my-3">Budget Buddy</h1><br><br>
+	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-indigo px-4 rounded-pill" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+			<div class="container-fluid">
+				<a class="navbar-brand fw-bold" href="#">Budget Buddy</a>
+				<ul class="navbar-nav ms-auto gap-3">
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7front.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7features.html">Features</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#dashboard">Dashboard</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7balance.html">Balance check</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7transactions.html">Transactions</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7faq.html">Budget planner</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="D:\hw documents\FRONT END\notes\templates\project7faq.html">FAQ</a>
+					</li>
+				</ul>
+			</div>
+		</nav><br><br>
+
+		<div id="dashboard" class="container text-center">
+			<div class="d-flex justify-content-center gap-5 flex-wrap">
+			  <div class="card p-4">
+				<h2 class="text-success">Total Income</h2>
+				<h4 id="incomeValue">₹0</h4>
+			  </div>
+			  <div class="card p-4">
+				<h2 class="text-danger">Total Expense</h2>
+				<h4 id="expenseValue">₹0</h4>
+			  </div>
+			  <div class="card p-4">
+				<h2 class="text-info">Total Balance</h2>
+				<h4 id="balanceValue">₹0</h4>
+			  </div>
+			</div><br><br><br>
+
+    <div class="card p-4 w-75 mx-auto mb-4">
+      <h3>Add Transaction</h3><br><br>
+	  <marquee>If income amount is +ve else amount is -ve</marquee><br><br>
+      <form id="transactionForm" class="row g-3 justify-content-center">
+        <div class="col-md-3">
+          <input type="text" id="tname" class="form-control" placeholder="Name" required>
+        </div>
+        <div class="col-md-3">
+          <input type="number" id="tamount" class="form-control" placeholder="Amount" required>
+        </div>
+        <div class="col-md-3">
+          <input type="text" id="tcategory" class="form-control" placeholder="Category" required>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary w-100">Add</button>
+        </div>
+      </form>
+    </div>
+
+    <div style="width: 300px; height: 300px;" class="mx-auto">
+      <canvas id="categoryChart" width="300" height="300"></canvas>
+    </div>
+
+    <div class="transactions mt-4 w-75 mx-auto">
+      <h3>Recent Transactions</h3>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div><br><br><br>
+
+  <script>
+    let transactions = [];
+
+    const colors = {
+      Salary: '#3b82f6',
+      Veg: '#ef4444',
+      tv: '#facc15',
+      Food: '#10b981'
+    };
+
+    const form = document.getElementById("transactionForm");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("tname").value;
+      const amount = parseFloat(document.getElementById("tamount").value);
+      const category = document.getElementById("tcategory").value;
+
+      if (name && amount && category) {
+        transactions.push({ name, amount, category });
+        form.reset();
+        updateDashboard();
+      }
+    });
+
+    function updateDashboard() {
+      const income = transactions
+        .filter(t => t.amount > 0)
+        .reduce((sum, t) => sum + t.amount, 0);
+
+      const expenses = transactions
+        .filter(t => t.amount < 0)
+        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+
+      const balance = income - expenses;
+
+      document.getElementById('incomeValue').textContent = `₹${income}`;
+      document.getElementById('expenseValue').textContent = `₹${expenses}`;
+      document.getElementById('balanceValue').textContent = `₹${balance}`;
+
+      const tableBody = document.getElementById("transactionTableBody");
+      tableBody.innerHTML = '';
+      transactions.forEach((t,index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${t.name}</td>
+          <td style="color:${t.amount >= 0 ? 'green' : 'red'}">₹${Math.abs(t.amount)}</td>
+          <td>${t.category}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      const categoryTotals = {};
+      transactions.forEach(t => {
+        if (t.amount < 0) {
+          categoryTotals[t.category] = (categoryTotals[t.category] || 0) + Math.abs(t.amount);
+        }
+      });
+
+      const chartLabels = Object.keys(categoryTotals);
+      const chartData = Object.values(categoryTotals);
+      const chartColors = chartLabels.map(label => colors[label] || '#ccc');
+      const ctx = document.getElementById('categoryChart').getContext('2d');
+
+      if (window.myChart) {
+        window.myChart.destroy();
+      }
+
+      window.myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: chartLabels,	
+          datasets: [{
+            data: chartData,
+            backgroundColor: chartColors
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false
+        }
+      });
+    }
+
+    updateDashboard();
+  </script>
+  <footer class="bg-light text-dark mt-5">
+	  <div class="container py-4">
+		<p class="mb-0 small text-center">
+		  The Expensify Visa® Commercial Card is issued by The Bancorp Bank, N.A. pursuant to a license from Visa U.S.A. Inc. and may not be used at all merchants that accept Visa cards.<br>
+		  Apple® and the Apple logo® are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.<br>
+		  Google Play and the Google Play logo are trademarks of Google LLC.
+		</p>
+	  </div>
+	</footer>
+</body>
+</html>
